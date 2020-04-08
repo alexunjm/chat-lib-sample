@@ -1,0 +1,12 @@
+{
+    "gitflow4code.features": [
+        {
+            "name": "feature/hapi-server",
+            "base": "develop"
+        },
+        {
+            "name": "feature/express-server",
+            "base": "develop"
+        }
+    ]
+}
