@@ -1,0 +1,32 @@
+{
+  "name": "chat-lib-sample",
+  "version": "0.1.0",
+  "description": "easy-chat-server example",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexunjm/chat-lib-sample.git"
+  },
+  "keywords": [
+    "example",
+    "test",
+    "chat",
+    "sockets",
+    "socket.io",
+    "chat server",
+    "easy chat"
+  ],
+  "author": {
+    "name": "Alexander Jaramillo",
+    "email": "contacto@alexanderjaramillo.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexunjm/chat-lib-sample/issues"
+  },
+  "homepage": "https://github.com/alexunjm/chat-lib-sample#readme"
+}
