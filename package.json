@@ -28,5 +28,8 @@
   "bugs": {
     "url": "https://github.com/alexunjm/chat-lib-sample/issues"
   },
-  "homepage": "https://github.com/alexunjm/chat-lib-sample#readme"
+  "homepage": "https://github.com/alexunjm/chat-lib-sample#readme",
+  "dependencies": {
+    "@hapi/hapi": "^19.1.1"
+  }
 }
