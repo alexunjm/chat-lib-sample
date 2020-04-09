@@ -27,13 +27,13 @@ io.on('connection', (socket) => {
 
 const emit = (socket, msg) => {
   console.log("emit -> socket, msg", socket.id, msg)
-  socket.emit('some event', msg);
+  socket.emit('chat message', msg);
 }
 
 const broadcastEmit = (msg) => {
   console.log("broadcastEmit -> msg", msg)
-  // io.emit('some event', { someProperty: 'some value', otherProperty: 'other value' });
-  io.emit('some event', msg);
+  // io.emit('chat message', { someProperty: 'some value', otherProperty: 'other value' });
+  io.emit('chat message', msg);
 }
 
 http.listen(global.port, () => {

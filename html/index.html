@@ -6,7 +6,9 @@
   <title>Home</title>
 </head>
 <body>
-  <div class="panel"></div>
+  <div class="panel">
+    <ul id="msgStack"></ul>
+  </div>
   <div class="msg-area">
     <input type="text" id="msg" />
     <button onclick="sendMsg()">Send Hello</button>
@@ -14,11 +16,27 @@
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
-    const socket = io();
     const textMsgInput = document.getElementById('msg');
+    const stackMsgUl = document.getElementById("msgStack");
+
+    const create = msg => {
+      const li = document.createElement('li');
+      li.textContent = msg;
+      return li;
+    }
+    
+    const appendMsg = msg => {
+      // append to msgStack
+      stackMsgUl.appendChild(create(msg));
+    }
+
+    const socket = io();
     const sendMsg = () => {
       socket.emit('chat message', textMsgInput.value);
     }
+    socket.on('chat message', (msg) => {
+      appendMsg(msg);
+    });
   </script>
 </body>
 </html>
