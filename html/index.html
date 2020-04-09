@@ -6,13 +6,18 @@
   <title>Home</title>
 </head>
 <body>
-  It's ok!
-  <button onclick="send('hello')">Send Hello</button>
+  <div class="panel"></div>
+  <div class="msg-area">
+    <input type="text" id="msg" />
+    <button onclick="sendMsg()">Send Hello</button>
+  </div>
+
   <script src="/socket.io/socket.io.js"></script>
   <script>
     const socket = io();
-    const send = (msg) => {
-      socket.emit('chat message', msg);
+    const textMsgInput = document.getElementById('msg');
+    const sendMsg = () => {
+      socket.emit('chat message', textMsgInput.value);
     }
   </script>
 </body>
