@@ -13,8 +13,11 @@
     <input type="text" id="msg" />
     <button onclick="sendMsg()">Send</button>
   </div>
+  <div class="modal">
+  </div>
 
   <script src="/socket.io/socket.io.js"></script>
+  <!-- dom handler -->
   <script>
     const textMsgInput = document.getElementById('msg');
     const stackMsgUl = document.getElementById("msgStack");
@@ -26,17 +29,77 @@
     }
     
     const appendMsg = msg => {
-      // append to msgStack
+      // append to msg stack
       stackMsgUl.appendChild(create(msg));
     }
 
-    const socket = io();
-    const sendMsg = () => {
-      socket.emit('chat message', textMsgInput.value);
+    const createInput = (inputData) => {
+      const input = document.createElement('input');
+      input.type = inputData.type || 'text';
+      input.name = inputData.name
+      input.placeholder = inputData.name
+      input.value = '';
+      return input;
     }
-    socket.on('chat message', (msg) => {
+
+    const createSubmitBtn = (form) => {
+      const submitBtn = document.createElement('input');
+      submitBtn.type = 'submit';
+      submitBtn.value = 'Save';
+      form.appendChild(submitBtn);
+    }
+
+    const showForm = template => {
+      const form = document.createElement('form');
+      const id = template.id || `sample${Date.now()}`;
+      const data = template.payload.reduce((result, name) => {
+        result.fields.push({name});
+        return result;
+      }, {
+        id,
+        name: template.name || id,
+        fields: []
+      })
+      form.id = data.id
+      form.name = data.name
+      form.onsubmit = () => {
+        const obj = {};
+        for(let i = 0 ; i < template.payload.length ; i++){
+          obj[template.payload[i]] = form[template.payload[i]].value;
+        }
+        send('I am', {...obj, id: form.id});
+        return false;
+      }
+      data.fields.forEach(element => {
+        form.appendChild(createInput(element));
+      });
+      createSubmitBtn(form);
+
+      const modal = document.getElementsByClassName('modal')[0];
+      modal.innerHTML = '';
+      console.log("modal", modal)
+      
+      modal.appendChild(form);
+    }
+  </script>
+  <!-- end dom handler -->
+  <!-- socket messaging -->
+  <script>
+
+    const socket = io();
+    const send = (channel, msg) => {
+      socket.emit(channel, msg);
+    }
+    const sendMsg = () => {
+      send('public message', textMsgInput.value);
+    }
+    socket.on('who are you?', (template) => {
+      showForm(template);
+    });
+    socket.on('public message', (msg) => {
       appendMsg(msg);
     });
   </script>
+  <!-- end socket messaging -->
 </body>
 </html>
